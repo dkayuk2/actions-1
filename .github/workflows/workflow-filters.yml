@@ -1,0 +1,23 @@
+name: Exploring workflow filters
+on:
+    workflow_dispatch:
+    push:
+      branches-ignore:
+        - feature/*         # feature/add-music, feature/updateImages
+        - test/**           # test/ui/index, test/checkout/payment
+    #   branches:
+    #     - main
+    #     - '!feature/*'      # ignore pushing to any branch starting with feature using !
+    pull_request:
+      types:
+        - opened
+        - closed
+      paths-ignore:         # workflow will only run when a PR there is a change to a file other than README.md
+        - README.md
+      branches:
+        - main              # configures your workflow to only run on PRs that target specific branches
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo this workflow/job/step is executed for event type ${{ github.event_name}}
